@@ -3,8 +3,10 @@ import 'package:testt/Models/TaskModel.dart';
 import 'package:testt/Services/db.dart';
 
 class TaskController extends GetxController {
+
   var tasks = <TaskModel>[].obs;
   final DBService _dbService = DBService();
+  final RxInt currentIndex = 0.obs;
 
   @override
   void onInit() {
@@ -30,5 +32,20 @@ class TaskController extends GetxController {
   void deleteTask(int id) async {
     await _dbService.deleteTask(id);
     loadTasks();
+  }
+
+  void onToggleDone(TaskModel task){
+    final updatedTask = TaskModel(
+      id: task.id,
+      title: task.title,
+      description: task.description,
+      date: task.date,
+      isDone: !task.isDone,
+      );
+    updateTask(updatedTask);
+  }
+
+  void navigateIndex(int index) {
+    currentIndex.value = index;
   }
 }

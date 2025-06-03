@@ -24,9 +24,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'To-Do App',
+      title: 'Taskly',
       initialBinding: InitialBinding(),
-      home: MainNavigation(),
+      home: MainScreen(),
       debugShowCheckedModeBanner: false,
     );
   }

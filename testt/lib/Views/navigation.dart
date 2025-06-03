@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:testt/Controllers/TaskController.dart';
 import 'package:testt/Views/calender.dart';
 import 'package:testt/Views/editScreen.dart';
 import 'package:testt/Views/homeScreen.dart';
 import 'package:testt/Views/statistics.dart';
 
 
-class MainNavigation extends StatefulWidget {
-  @override
-  _MainNavigationState createState() => _MainNavigationState();
-}
+class MainScreen extends StatelessWidget {
 
-class _MainNavigationState extends State<MainNavigation> {
-  int _currentIndex = 0;
-  final List<Widget> _screens = [
+  MainScreen({super.key});
+
+  final TaskController taskController = Get.put(TaskController());
+
+
+  final List<Widget> screens = [
     HomeScreen(),
     AddEditTaskScreen(),
     StatisticsScreen(),
@@ -22,19 +23,22 @@ class _MainNavigationState extends State<MainNavigation> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _screens[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: (index) => setState(() => _currentIndex = index),
-        type: BottomNavigationBarType.fixed,
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.add_task), label: 'Add'),
-          BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: 'Stats'),
-          BottomNavigationBarItem(icon: Icon(Icons.calendar_today), label: 'Calendar'),
-        ],
-      ),
-    );
+    return Obx((){
+      return Scaffold(
+        body: screens[taskController.currentIndex.value],
+        bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: const Color.fromARGB(255, 188, 163, 228),
+          currentIndex: taskController.currentIndex.value,
+          onTap: (index) => taskController.navigateIndex(index),
+          type: BottomNavigationBarType.fixed,
+          items: [
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+            BottomNavigationBarItem(icon: Icon(Icons.add_task), label: 'Add'),
+            BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: 'Stats'),
+            BottomNavigationBarItem(icon: Icon(Icons.calendar_today), label: 'Calendar'),
+          ],
+        ),
+      );
+    });
   }
 }
