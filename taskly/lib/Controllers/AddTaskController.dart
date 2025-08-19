@@ -37,8 +37,8 @@ final formKey = GlobalKey<FormState>();
       firstDate: DateTime(2000),
       lastDate: DateTime(2100),
     );
-    if (picked != null && picked != selectedDate) {
-        selectedDate.value = picked;
+    if (picked != selectedDate) {
+        selectedDate.value = picked!;
     }
   }
 
